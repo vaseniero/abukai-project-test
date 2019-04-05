@@ -19,7 +19,13 @@ class CreatePhotoTaggingsTable extends Migration
             $table->text('description')->nullable();            
             $table->string('location')->nullable();
             $table->dateTime('tag_at')->nullable();
-            $table->timestamps();
+            $table->longText('tagged')->nullable();
+            $table->longText('positions')->nullable();
+            $table->timestamps();            
+        });
+
+        Schema::table('photo_taggings', function(Blueprint $table) {
+            $table->unique(['id', 'user_id'], 'PhotoTaggingsUnique');
         });
     }
 
