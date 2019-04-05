@@ -43,7 +43,6 @@ class CreatePhotoTaggingsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
         });
-
     }
 
     /**

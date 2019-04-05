@@ -30,7 +30,6 @@ class CreateTaggedListsTable extends Migration
             */
         });
 
-
         Schema::table('tagged_lists', function(Blueprint $table) {
             $table->unique(['photo_id', 'tag_user_id'], 'TaggedListsUnique');
             $table->foreign('photo_id', 'PhotoTagRelation')
@@ -38,7 +37,6 @@ class CreateTaggedListsTable extends Migration
                 ->on('photo_taggings')
                 ->onDelete('cascade');
         });
-
     }
 
     /**
