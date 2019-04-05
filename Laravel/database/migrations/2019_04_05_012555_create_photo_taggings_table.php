@@ -21,7 +21,12 @@ class CreatePhotoTaggingsTable extends Migration
             $table->dateTime('tag_at')->nullable();
             $table->longText('tagged')->nullable();
             $table->longText('positions')->nullable();
-            $table->timestamps();            
+            $table->timestamps();
+
+            $table->foreign('user_id', 'UserPhotoRelation')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
         });
 
         Schema::table('photo_taggings', function(Blueprint $table) {
