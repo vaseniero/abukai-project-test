@@ -24,9 +24,9 @@ class CreatePhotoTaggingsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id', 'UserPhotoRelation')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade');
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
             $table->unique(['id', 'user_id'], 'PhotoTaggingsUnique');
         });
