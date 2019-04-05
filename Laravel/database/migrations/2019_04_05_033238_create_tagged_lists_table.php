@@ -20,19 +20,25 @@ class CreateTaggedListsTable extends Migration
             $table->point('position')->nullable();
             $table->timestamps();
 
+            /*
             $table->foreign('photo_id', 'PhotoTagRelation')
                 ->references('id')
                 ->on('photo_taggings')
                 ->onDelete('cascade');
             
             $table->unique(['photo_id', 'tag_user_id'], 'TaggedListsUnique');
+            */
         });
 
-/* 
+
         Schema::table('tagged_lists', function(Blueprint $table) {
             $table->unique(['photo_id', 'tag_user_id'], 'TaggedListsUnique');
+            $table->foreign('photo_id', 'PhotoTagRelation')
+                ->references('id')
+                ->on('photo_taggings')
+                ->onDelete('cascade');
         });
- */
+
     }
 
     /**
