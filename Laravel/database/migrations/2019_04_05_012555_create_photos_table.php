@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhotoTaggingsTable extends Migration
+class CreatePhotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePhotoTaggingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('photo_taggings', function (Blueprint $table) {
+        Schema::create('photos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->text('description')->nullable();            
@@ -32,13 +32,13 @@ class CreatePhotoTaggingsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->unique(['id', 'user_id'], 'PhotoTaggingsUnique');
+            $table->unique(['id', 'user_id'], 'PhotoUnique');
             */
         });
 
-        Schema::table('photo_taggings', function(Blueprint $table) {
-            $table->unique(['id', 'user_id'], 'PhotoTaggingsUnique');
-            $table->foreign('user_id', 'UserPhotoRelation')
+        Schema::table('photos', function(Blueprint $table) {
+            $table->unique(['id', 'user_id'], 'PhotosUnique');
+            $table->foreign('user_id', 'PhotoUserRelation')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
@@ -52,6 +52,6 @@ class CreatePhotoTaggingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('photo_taggings');
+        Schema::dropIfExists('photos');
     }
 }

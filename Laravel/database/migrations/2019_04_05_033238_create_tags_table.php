@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTaggedListsTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,28 +13,28 @@ class CreateTaggedListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tagged_lists', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('photo_id');
-            $table->unsignedBigInteger('tag_user_id');
+            $table->unsignedBigInteger('user_id');
             $table->point('position')->nullable();
             $table->timestamps();
 
             /*
-            $table->foreign('photo_id', 'PhotoTagRelation')
+            $table->foreign('photo_id', 'TagPhotoRelation')
                 ->references('id')
-                ->on('photo_taggings')
+                ->on('photos')
                 ->onDelete('cascade');
             
-            $table->unique(['photo_id', 'tag_user_id'], 'TaggedListsUnique');
+            $table->unique(['photo_id', 'tag_user_id'], 'TagsUnique');
             */
         });
 
-        Schema::table('tagged_lists', function(Blueprint $table) {
-            $table->unique(['photo_id', 'tag_user_id'], 'TaggedListsUnique');
-            $table->foreign('photo_id', 'PhotoTagRelation')
+        Schema::table('tags', function(Blueprint $table) {
+            $table->unique(['photo_id', 'user_id'], 'TagsUnique');
+            $table->foreign('photo_id', 'TagPhotoRelation')
                 ->references('id')
-                ->on('photo_taggings')
+                ->on('photos')
                 ->onDelete('cascade');
         });
     }
@@ -46,6 +46,6 @@ class CreateTaggedListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tagged_lists');
+        Schema::dropIfExists('tags');
     }
 }
