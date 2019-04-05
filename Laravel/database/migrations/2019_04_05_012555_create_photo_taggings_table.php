@@ -27,11 +27,15 @@ class CreatePhotoTaggingsTable extends Migration
             ->references('id')
             ->on('users')
             ->onDelete('cascade');
+
+            $table->unique(['id', 'user_id'], 'PhotoTaggingsUnique');
         });
 
+/* 
         Schema::table('photo_taggings', function(Blueprint $table) {
             $table->unique(['id', 'user_id'], 'PhotoTaggingsUnique');
         });
+ */
     }
 
     /**

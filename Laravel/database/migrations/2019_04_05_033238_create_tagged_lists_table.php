@@ -24,11 +24,15 @@ class CreateTaggedListsTable extends Migration
                 ->references('id')
                 ->on('photo_taggings')
                 ->onDelete('cascade');
+            
+            $table->unique(['photo_id', 'tag_user_id'], 'TaggedListsUnique');
         });
 
+/* 
         Schema::table('tagged_lists', function(Blueprint $table) {
             $table->unique(['photo_id', 'tag_user_id'], 'TaggedListsUnique');
         });
+ */
     }
 
     /**
