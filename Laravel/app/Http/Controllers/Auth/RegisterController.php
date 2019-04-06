@@ -71,7 +71,10 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function register(Request $request)
+    /**
+     * 
+     */
+    public function record(Request $request)
     {
         // Here the request is validated. The validator method is located
         // inside the RegisterController, and makes sure the name, email
@@ -81,7 +84,7 @@ class RegisterController extends Controller
         // A Registered event is created and will trigger any relevant
         // observers, such as sending a confirmation email or any 
         // code that needs to be run as soon as the user is created.
-        event(new Registered($user = $this->create($request->all())));
+        event(new recorded($user = $this->create($request->all())));
     
         // After the user is created, he's logged in.
         $this->guard()->login($user);
@@ -90,11 +93,14 @@ class RegisterController extends Controller
         // registered() method or it returns null, redirect him to
         // some other URL. In our case, we just need to implement
         // that method to return the correct response.
-        return $this->registered($request, $user)
+        return $this->recorded($request, $user)
                         ?: redirect($this->redirectPath());
     }
 
-    protected function registered(Request $request, $user)
+    /**
+     * 
+     */
+    protected function recorded(Request $request, $user)
     {
         $user->generateToken();
     
